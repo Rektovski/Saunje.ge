@@ -1,0 +1,35 @@
+.sunshine {
+    font-weight: bold;
+    color: black;
+    background: white;
+    border: transparent;
+}
+
+.sunshine:hover {
+    background-color: black;
+    color: white;
+}
+
+.moonlight {
+    font-weight: bold;
+    color: white;
+    background: black;
+    border: transparent;
+}
+
+.moonlight:hover {
+    background-color: white;
+    color: black;
+}
+
+.navBrandFont {
+    font-size: 50px;
+}
+
+.mainHeaderImage {
+    border-radius: 50px;
+    background-color: rgba(0,0,0,0.15);
+    height: 5rem;
+    width: 20rem;
+    margin-left: 15px;
+}
