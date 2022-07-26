@@ -2,7 +2,6 @@ import {Accordion, Button, Col, Form, InputGroup, ListGroup, Row} from "react-bo
 import {useContext, useState} from "react";
 import ThemeContext from "../../context/ThemeContext";
 import "../../style/bodyStyle.css";
-import Footer from "./Footer";
 import LeftLayout from "./LeftLayout";
 import PostModal from "./PostModal";
 import UserContext from "../../context/UserContext";
@@ -19,14 +18,7 @@ export default function Body() {
             <div className={`mx-3 bg-${theme} text-${theme === 'dark' ? 'light' : 'dark'} rounded`}>
                 <Row>
                     <Col sm={'12'} md={'4'} lg={'2'}>
-                        <Accordion>
-                            <Accordion.Item eventKey={'0'}>
-                                <Accordion.Header>ჩამონათვალი</Accordion.Header>
-                                <Accordion.Body style={{margin: -20}}>
-                                    <LeftLayout/>
-                                </Accordion.Body>
-                            </Accordion.Item>
-                        </Accordion>
+                        <LeftLayout/>
                     </Col>
                     <Col sm={'12'} md={'8'} lg={'10'}>
                         {
@@ -69,45 +61,7 @@ export default function Body() {
                                 </Form>
                             ) : ("")
                         }
-                        <ListGroup style={{textAlign: "justify"}} className={''}>
-                            <ListGroup.Item className={'m-2 rounded'} onClick={()=>{
-                                setShow(true)
-                            }}>
-                                დავით აღმაშენებლის შესახებ
-                            </ListGroup.Item>
-                            <ListGroup.Item className={'m-2 rounded'}>
-                                თამარ მეფის შესახებ
-                            </ListGroup.Item>
-                            <ListGroup.Item className={'m-2 rounded'}>
-                                ერეკლე II-ის შესახებ
-                            </ListGroup.Item>
-                            <ListGroup.Item className={'m-2 rounded'}>
-                                ერეკლე II-ის შესახებ
-                            </ListGroup.Item>
-                            <ListGroup.Item className={'m-2 rounded'}>
-                                ერეკლე II-ის შესახებ
-                            </ListGroup.Item>
-                            <ListGroup.Item className={'m-2 rounded'}>
-                                ერეკლე II-ის შესახებ
-                            </ListGroup.Item>
-                            <ListGroup.Item className={'m-2 rounded'}>
-                                ერეკლე II-ის შესახებ
-                            </ListGroup.Item>
-                            <ListGroup.Item className={'m-2 rounded'}>
-                                ერეკლე II-ის შესახებ
-                            </ListGroup.Item>
-                            <ListGroup.Item className={'m-2 rounded'}>
-                                ერეკლე II-ის შესახებ
-                            </ListGroup.Item>
-                            <ListGroup.Item className={'m-2 rounded'}>
-                                ერეკლე II-ის შესახებ
-                            </ListGroup.Item>
-                        </ListGroup>
-                    </Col>
-                </Row>
-                <Row>
-                    <Col sm={'12'} md={'12'} lg={'12'}>
-                        <Footer/>
+                        <div id={"yle"}></div>
                     </Col>
                 </Row>
             </div>

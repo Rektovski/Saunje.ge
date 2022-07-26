@@ -79,12 +79,12 @@ export default function Layout() {
                                 />
                                 <Button variant="outline-primary">Search</Button>
                             </Form>
-                            <Navbar.Text
-                                className={'d-grid flex-grow-1 align-items-center justify-content-end'}>
-                                <Button variant={'warning'} onClick={() => {
-                                    window.location.replace('http://localhost:3000/login')
-                                }}>Authorization</Button>
-                            </Navbar.Text>
+                            {/*<Navbar.Text*/}
+                            {/*    className={'d-grid flex-grow-1 align-items-center justify-content-end'}>*/}
+                            {/*    <Button variant={'warning'} onClick={() => {*/}
+                            {/*        window.location.replace('http://localhost:3000/login')*/}
+                            {/*    }}>Authorization</Button>*/}
+                            {/*</Navbar.Text>*/}
                         </Offcanvas.Body>
                     </Navbar.Offcanvas>
                 </Container>
