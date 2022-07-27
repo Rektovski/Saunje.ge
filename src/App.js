@@ -28,23 +28,21 @@ function App() {
     },[user])
 
     return (
-        <div className={'app'}>
-            <UserContext.Provider value={{user, setUser}}>
-                <ThemeContext.Provider value={{theme, setTheme}}>
-                    <BrowserRouter>
-                        <Routes>
-                            <Route path={'/'} element={<Layout/>}>
-                                <Route path={'/'} element={<Body/>}></Route>
-                            </Route>
-                            <Route path={'/login'} element={<LoginPage/>}></Route>
-                            <Route path={'*'} element={<ErrorPage/>}></Route>
-                        </Routes>
-                    </BrowserRouter>
-                </ThemeContext.Provider>
-            </UserContext.Provider>
-        </div>
-
-
+            <div className={'app'}>
+                <UserContext.Provider value={{user, setUser}}>
+                    <ThemeContext.Provider value={{theme, setTheme}}>
+                        <BrowserRouter>
+                            <Routes>
+                                <Route path={'/'} element={<Layout/>}>
+                                    <Route path={'/'} element={<Body/>}></Route>
+                                </Route>
+                                <Route path={'/login'} element={<LoginPage/>}></Route>
+                                <Route path={'*'} element={<ErrorPage/>}></Route>
+                            </Routes>
+                        </BrowserRouter>
+                    </ThemeContext.Provider>
+                </UserContext.Provider>
+            </div>
     );
 }
 

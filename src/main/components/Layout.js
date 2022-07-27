@@ -7,27 +7,31 @@ import "../style/layout.css";
 import {BsMoonStars as NightIcon} from "react-icons/bs";
 import mainHeaderImage from "../images/mainHeader.png";
 import {Outlet} from "react-router";
+import ka from "../images/ka.gif";
+import en from "../images/en.gif";
+import ru from "../images/ru.gif";
 
 export default function Layout() {
     const {theme, setTheme} = useContext(ThemeContext);
 
     return (
         <div>
+            <div className={'d-flex justify-content-center'}>
+                <img
+                    src={mainHeaderImage}
+                    alt={'თქვენ ვერ ხედავთ "საუნჯე"-ს მთავარ ფოტოს'}
+                    className={'mainHeaderImage'}
+                    onClick={() => {
+                        window.location.replace('http://localhost:3000')
+                    }}
+                />
+            </div>
             <Navbar key={'lg'} expand={'lg'}
                     className={`
                     text-${theme === 'dark' ? 'light' : 'dark'} 
                     bg-${theme}
                     `}>
                 <Container fluid>
-                    <img
-                        src={mainHeaderImage}
-                        alt={'თქვენ ვერ ხედავთ "საუნჯე"-ს მთავარ ფოტოს'}
-                        className={'mainHeaderImage'}
-                        onClick={() => {
-                            window.location.replace('http://localhost:3000')
-                        }}
-                    />
-
                     <Navbar.Toggle
                         aria-controls={`offcanvasNavbar-expand-lg`}
                         className={`navbar-${theme === 'dark' ? 'dark' : 'light'}`}
@@ -43,35 +47,8 @@ export default function Layout() {
                         >
                         </Offcanvas.Header>
                         <Offcanvas.Body
-                            className={`text-${theme === 'dark' ? 'light' : 'dark'} bg-${theme} text-center `}>
-                            {
-                                theme === 'light' ? (
-                                    <Button
-                                        className={'m-2 sunshine'}
-                                        onClick={() => {
-                                            setTheme('dark')
-                                        }}
-                                    >
-                                        <div className={'d-flex align-items-center'}>
-                                            <div className={'me-3'}>ღამე</div>
-                                            <NightIcon/>
-                                        </div>
-                                    </Button>
-                                ) : (
-                                    <Button
-                                        className={'m-2 moonlight'}
-                                        onClick={() => {
-                                            setTheme('light')
-                                        }}
-                                    >
-                                        <div className={'d-flex align-items-center'}>
-                                            <div className={'me-3'}>დღე</div>
-                                            <DayIcon/>
-                                        </div>
-                                    </Button>
-                                )
-                            }
-                            <Form className="d-flex align-items-center  m-1">
+                            className={`d-flex justify-content-between align-items-center text-${theme === 'dark' ? 'light' : 'dark'} bg-${theme} text-center`}>
+                            <Form className="d-flex align-items-center m-1">
                                 <Form.Control
                                     type="search"
                                     placeholder="Search"
@@ -79,6 +56,55 @@ export default function Layout() {
                                 />
                                 <Button variant="outline-primary">Search</Button>
                             </Form>
+                            <div className={'d-flex justify-content-center align-items-center'}>
+                                {
+                                    theme === 'light' ? (
+                                        <Button
+                                            className={'m-2 sunshine'}
+                                            onClick={() => {
+                                                setTheme('dark')
+                                            }}
+                                        >
+                                            <div className={'d-flex align-items-center'}>
+                                                <div className={'me-3'}>ღამე</div>
+                                                <NightIcon/>
+                                            </div>
+                                        </Button>
+                                    ) : (
+                                        <Button
+                                            className={'m-2 moonlight'}
+                                            onClick={() => {
+                                                setTheme('light')
+                                            }}
+                                        >
+                                            <div className={'d-flex align-items-center'}>
+                                                <div className={'me-3'}>დღე</div>
+                                                <DayIcon/>
+                                            </div>
+                                        </Button>
+                                    )
+                                }
+                                {/* todo - ar chans droshebi mobiluris versiaze*/}
+                                <div>
+                                    <img
+                                        src={ka}
+                                        alt={`You can't see Georgian flag foto which translates text to Georgian`}
+                                    />
+                                </div>
+                                <div>
+                                    <img
+                                        src={en}
+                                        alt={`You can't see English flag foto which translates text to English`}
+                                    />
+                                </div>
+                                <div>
+                                    <img
+                                        src={ru}
+                                        alt={`You can't see Russian flag foto which translates text to Russian`}
+                                    />
+                                </div>
+                            </div>
+
                             {/*<Navbar.Text*/}
                             {/*    className={'d-grid flex-grow-1 align-items-center justify-content-end'}>*/}
                             {/*    <Button variant={'warning'} onClick={() => {*/}

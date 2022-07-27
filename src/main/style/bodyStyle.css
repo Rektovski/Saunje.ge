@@ -1,3 +1,4 @@
-.hovering:hover {
-    background-color: #a5e8ce;
+.bodyChanger {
+    min-height: 100vh;
+    height: auto !important;
 }

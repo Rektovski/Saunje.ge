@@ -1,5 +1,5 @@
-import {Accordion, Button, Col, Form, InputGroup, ListGroup, Row} from "react-bootstrap";
-import {useContext, useState} from "react";
+import {Button, Col, Form, InputGroup, ListGroup, Row} from "react-bootstrap";
+import {useContext, useEffect, useState} from "react";
 import ThemeContext from "../../context/ThemeContext";
 import "../../style/bodyStyle.css";
 import LeftLayout from "./LeftLayout";
@@ -12,20 +12,28 @@ export default function Body() {
     const [show, setShow] = useState(false);
     const [newPostName, setNewPostName] = useState('');
     const [newPostText, setNewPostText] = useState('');
+    const [sideBar, setSideBar] = useState(false);
+
+    useEffect(()=>{
+        console.log('logged from body.js -> useEffect');
+    }, [sideBar])
 
     return (
-        <div className={`bg-${theme} text-${theme === 'dark' ? 'light' : 'dark'}`}>
-            <div className={`mx-3 bg-${theme} text-${theme === 'dark' ? 'light' : 'dark'} rounded`}>
+        <div className={`bodyChanger bg-${theme} text-${theme === 'dark' ? 'light' : 'dark'}`}>
+            <div className={`mx-3 bg-${theme} text-${theme === 'dark' ? 'light' : 'dark'}`}>
                 <Row>
-                    <Col sm={'12'} md={'4'} lg={'2'}>
-                        <LeftLayout/>
+                    <Col sm={'6'} md={'4'} lg={'2'} className={'mx-auto flex-fill'}>
+                        <LeftLayout showSideBarInfo={()=>{setSideBar(true)}} hideSideBar={()=>{setSideBar(false)}}/>
                     </Col>
-                    <Col sm={'12'} md={'8'} lg={'10'}>
+                    <Col sm={'6'} md={'8'} lg={'10'}>
                         {
                             user ? (
                                 <Form className={'border border-5 border-danger p-5 rounded'}>
                                     <div>
-                                        <Button variant={'danger'} onClick={()=>{localStorage.clear('password');window.location.reload()}}>გამოსვლა</Button>
+                                        <Button variant={'danger'} onClick={() => {
+                                            localStorage.clear('password');
+                                            window.location.reload()
+                                        }}>გამოსვლა</Button>
                                     </div>
                                     <h1 className={'text-center'}>პოსტის დამატება</h1>
                                     პოსტის სახელი
@@ -34,7 +42,7 @@ export default function Body() {
                                         <Form.Control
                                             placeholder="type post"
                                             value={newPostName}
-                                            onChange={event=>setNewPostName(event.target.value)}
+                                            onChange={event => setNewPostName(event.target.value)}
                                         />
                                     </InputGroup>
                                     პოსტის ტექსტი
@@ -44,13 +52,13 @@ export default function Body() {
                                             as={'textarea'}
                                             style={{resize: "vertical", minHeight: 100, maxHeight: 400}}
                                             value={newPostText}
-                                            onChange={event=>setNewPostText(event.target.value)}
+                                            onChange={event => setNewPostText(event.target.value)}
                                         />
                                     </InputGroup>
                                     <div className={'d-flex justify-content-end'}>
                                         <Button
                                             variant="outline-info"
-                                            onClick={()=>{
+                                            onClick={() => {
                                                 setNewPostText('');
                                                 setNewPostName('');
                                             }}
@@ -61,16 +69,81 @@ export default function Body() {
                                 </Form>
                             ) : ("")
                         }
-                        <div id={"yle"}></div>
+                        {
+                            sideBar ? (
+                                <div id={"sideBarComponent"} className={'border border-1 rounded p-5'}></div>
+                            ) : (
+                                <ListGroup className={'mx-auto'}>
+                                    <ListGroup.Item
+                                        onClick={()=>{
+                                            setShow(true);
+                                            // give data of the post to the modal and add data as useEffect's deps
+                                        }}
+                                    >პოსტი - დავით აღმაშენებლი</ListGroup.Item>
+                                    <ListGroup.Item
+                                        onClick={()=>{
+                                            setShow(true);
+                                            // give data of the post to the modal and add data as useEffect's deps
+                                        }}
+                                    >პოსტი - დავით აღმაშენებლი</ListGroup.Item>
+                                    <ListGroup.Item
+                                        onClick={()=>{
+                                            setShow(true);
+                                            // give data of the post to the modal and add data as useEffect's deps
+                                        }}
+                                    >პოსტი - დავით აღმაშენებლი</ListGroup.Item>
+                                    <ListGroup.Item
+                                        onClick={()=>{
+                                            setShow(true);
+                                            // give data of the post to the modal and add data as useEffect's deps
+                                        }}
+                                    >პოსტი - დავით აღმაშენებლი</ListGroup.Item>
+                                    <ListGroup.Item
+                                        onClick={()=>{
+                                            setShow(true);
+                                            // give data of the post to the modal and add data as useEffect's deps
+                                        }}
+                                    >პოსტი - დავით აღმაშენებლი</ListGroup.Item>
+                                    <ListGroup.Item
+                                        onClick={()=>{
+                                            setShow(true);
+                                            // give data of the post to the modal and add data as useEffect's deps
+                                        }}
+                                    >პოსტი - დავით აღმაშენებლი</ListGroup.Item>
+                                    <ListGroup.Item
+                                        onClick={()=>{
+                                            setShow(true);
+                                            // give data of the post to the modal and add data as useEffect's deps
+                                        }}
+                                    >პოსტი - დავით აღმაშენებლი</ListGroup.Item>
+                                    <ListGroup.Item
+                                        onClick={()=>{
+                                            setShow(true);
+                                            // give data of the post to the modal and add data as useEffect's deps
+                                        }}
+                                    >პოსტი - დავით აღმაშენებლი</ListGroup.Item>
+                                    <ListGroup.Item
+                                        onClick={()=>{
+                                            setShow(true);
+                                            // give data of the post to the modal and add data as useEffect's deps
+                                        }}
+                                    >პოსტი - დავით აღმაშენებლი</ListGroup.Item>
+
+
+                                </ListGroup>
+                            )
+                        }
                     </Col>
                 </Row>
             </div>
 
             <PostModal
                 show={show}
-                onHide={()=>{setShow(false)}}
+                onHide={() => {
+                    setShow(false)
+                }}
                 // data={data}
-                />
+            />
         </div>
     );
 }

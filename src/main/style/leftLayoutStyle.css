@@ -1,0 +1,4 @@
+.hovering:hover {
+    background-image: linear-gradient(0deg, #ff0000 0%, #ffcd00 100%);
+    color: black;
+}
