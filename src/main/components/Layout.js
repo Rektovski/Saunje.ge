@@ -10,9 +10,11 @@ import {Outlet} from "react-router";
 import ka from "../images/ka.gif";
 import en from "../images/en.gif";
 import ru from "../images/ru.gif";
+import LanguageContext from "../context/LanguageContext";
 
 export default function Layout() {
     const {theme, setTheme} = useContext(ThemeContext);
+    const {language, setLanguage} = useContext(LanguageContext);
 
     return (
         <div>
@@ -51,10 +53,10 @@ export default function Layout() {
                             <Form className="d-flex align-items-center m-1">
                                 <Form.Control
                                     type="search"
-                                    placeholder="Search"
+                                    placeholder="ძებნა"
                                     className="mx-2"
                                 />
-                                <Button variant="outline-primary">Search</Button>
+                                <Button variant="outline-primary">ძებნა</Button>
                             </Form>
                             <div className={'d-flex justify-content-center align-items-center'}>
                                 {
@@ -89,18 +91,30 @@ export default function Layout() {
                                     <img
                                         src={ka}
                                         alt={`You can't see Georgian flag foto which translates text to Georgian`}
+                                        style={{height: '1.5rem'}}
+                                        onClick={()=>{
+                                            setLanguage('ka')
+                                        }}
                                     />
                                 </div>
                                 <div>
                                     <img
                                         src={en}
                                         alt={`You can't see English flag foto which translates text to English`}
+                                        style={{height: '1.5rem'}}
+                                        onClick={()=>{
+                                            setLanguage('en')
+                                        }}
                                     />
                                 </div>
                                 <div>
                                     <img
                                         src={ru}
                                         alt={`You can't see Russian flag foto which translates text to Russian`}
+                                        style={{height: '1.5rem'}}
+                                        onClick={()=>{
+                                            setLanguage('ru')
+                                        }}
                                     />
                                 </div>
                             </div>
