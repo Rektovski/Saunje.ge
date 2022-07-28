@@ -71,9 +71,9 @@ export default function Body() {
                         }
                         {
                             sideBar ? (
-                                <div id={"sideBarComponent"} className={'border border-1 rounded p-5'}></div>
+                                <div id={"sideBarComponent"} className={'m-2 p-5 border border-1 rounded'}></div>
                             ) : (
-                                <ListGroup className={'mx-auto'}>
+                                <ListGroup className={'m-2'}>
                                     <ListGroup.Item
                                         onClick={()=>{
                                             setShow(true);
@@ -128,8 +128,6 @@ export default function Body() {
                                             // give data of the post to the modal and add data as useEffect's deps
                                         }}
                                     >პოსტი - დავით აღმაშენებლი</ListGroup.Item>
-
-
                                 </ListGroup>
                             )
                         }

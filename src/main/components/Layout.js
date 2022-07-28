@@ -14,26 +14,16 @@ import LanguageContext from "../context/LanguageContext";
 
 export default function Layout() {
     const {theme, setTheme} = useContext(ThemeContext);
-    const {language, setLanguage} = useContext(LanguageContext);
+    const {setLanguage} = useContext(LanguageContext);
 
     return (
         <div>
-            <div className={'d-flex justify-content-center'}>
-                <img
-                    src={mainHeaderImage}
-                    alt={'თქვენ ვერ ხედავთ "საუნჯე"-ს მთავარ ფოტოს'}
-                    className={'mainHeaderImage'}
-                    onClick={() => {
-                        window.location.replace('http://localhost:3000')
-                    }}
-                />
-            </div>
             <Navbar key={'lg'} expand={'lg'}
                     className={`
                     text-${theme === 'dark' ? 'light' : 'dark'} 
                     bg-${theme}
                     `}>
-                <Container fluid>
+                <Container fluid className={"Navbar"}>
                     <Navbar.Toggle
                         aria-controls={`offcanvasNavbar-expand-lg`}
                         className={`navbar-${theme === 'dark' ? 'dark' : 'light'}`}
@@ -46,11 +36,12 @@ export default function Layout() {
                         <Offcanvas.Header
                             closeButton
                             className={`bg-${theme} text-${theme === 'dark' ? 'light' : 'dark'}`}
+                            closeVariant={`${theme === 'dark' ? 'white' : ''}`}
                         >
                         </Offcanvas.Header>
                         <Offcanvas.Body
                             className={`d-flex justify-content-between align-items-center text-${theme === 'dark' ? 'light' : 'dark'} bg-${theme} text-center`}>
-                            <Form className="d-flex align-items-center m-1">
+                            <Form className={"d-flex align-items-center m-1 Navbar"}>
                                 <Form.Control
                                     type="search"
                                     placeholder="ძებნა"
@@ -58,7 +49,7 @@ export default function Layout() {
                                 />
                                 <Button variant="outline-primary">ძებნა</Button>
                             </Form>
-                            <div className={'d-flex justify-content-center align-items-center'}>
+                            <div className={'d-flex justify-content-center align-items-center Navbar'}>
                                 {
                                     theme === 'light' ? (
                                         <Button
@@ -87,32 +78,32 @@ export default function Layout() {
                                     )
                                 }
                                 {/* todo - ar chans droshebi mobiluris versiaze*/}
-                                <div>
+                                <div className={"Navbar"}>
                                     <img
                                         src={ka}
                                         alt={`You can't see Georgian flag foto which translates text to Georgian`}
                                         style={{height: '1.5rem'}}
-                                        onClick={()=>{
+                                        onClick={() => {
                                             setLanguage('ka')
                                         }}
                                     />
                                 </div>
-                                <div>
+                                <div className={"Navbar"}>
                                     <img
                                         src={en}
                                         alt={`You can't see English flag foto which translates text to English`}
                                         style={{height: '1.5rem'}}
-                                        onClick={()=>{
+                                        onClick={() => {
                                             setLanguage('en')
                                         }}
                                     />
                                 </div>
-                                <div>
+                                <div className={"Navbar"}>
                                     <img
                                         src={ru}
                                         alt={`You can't see Russian flag foto which translates text to Russian`}
                                         style={{height: '1.5rem'}}
-                                        onClick={()=>{
+                                        onClick={() => {
                                             setLanguage('ru')
                                         }}
                                     />
@@ -129,7 +120,18 @@ export default function Layout() {
                     </Navbar.Offcanvas>
                 </Container>
             </Navbar>
+            <div className={'d-flex justify-content-center'}>
+                <img
+                    src={mainHeaderImage}
+                    alt={'თქვენ ვერ ხედავთ "საუნჯე"-ს მთავარ ფოტოს'}
+                    className={'mainHeaderImage'}
+                    onClick={() => {
+                        window.location.replace('http://localhost:3000')
+                    }}
+                />
+            </div>
             <Outlet/>
+
         </div>
     )
 }
