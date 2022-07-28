@@ -20,12 +20,7 @@ function App() {
             setTimeout(()=>{
                 localStorage.clear('token');
                 setUser(localStorage.getItem('password'));
-            },600000);
-            {/*
-            1s - 1000(ms)
-            1m - 60000(ms)
-            5m - 300000(ms)
-            */}
+            },300000);
         }
     },[user])
 

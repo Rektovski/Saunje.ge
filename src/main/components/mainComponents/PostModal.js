@@ -1,6 +1,7 @@
 import {Modal} from "react-bootstrap";
 import {useContext} from "react";
 import ThemeContext from "../../context/ThemeContext";
+import Text from "../../textDocumentsExample/Text";
 
 export default function PostModal(props) {
     const {theme} = useContext(ThemeContext);
@@ -12,10 +13,8 @@ export default function PostModal(props) {
                     პოსტის სახელი - დავით აღმაშენებელი
                 </Modal.Title>
             </Modal.Header>
-            <Modal.Body className={`bg-${theme} text-${theme === 'dark' ? 'light' : 'dark'}`}>
-                პოსტი
-
-                1121წ - დიდგორის ბრძოლა.
+            <Modal.Body className={`bg-${theme} text-${theme === 'dark' ? 'light' : 'dark'}  rounded`}>
+                <Text/>
             </Modal.Body>
         </Modal>
     );

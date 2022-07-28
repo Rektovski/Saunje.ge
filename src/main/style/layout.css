@@ -29,10 +29,19 @@
 .mainHeaderImage {
     height: 10rem;
     width: 25rem;
+    animation: pulse 2s infinite;
+    animation-name: pulse;
 }
 
-@media only screen and (max-width: 600px) {
-    .Navbar {
-        display: block;
-    }
+.navbar-brand {
+    font-weight: bold;
+}
+
+.marginFotoFromTop {
+    margin-top: 70px;
+}
+
+.image:hover {
+    font-size: 20px;
+    cursor: pointer;
 }

@@ -9,16 +9,15 @@ import mainHeaderImage from "../images/mainHeader.png";
 import {Outlet} from "react-router";
 import ka from "../images/ka.gif";
 import en from "../images/en.gif";
-import ru from "../images/ru.gif";
 import LanguageContext from "../context/LanguageContext";
 
 export default function Layout() {
     const {theme, setTheme} = useContext(ThemeContext);
-    const {setLanguage} = useContext(LanguageContext);
+    const {language, setLanguage} = useContext(LanguageContext);
 
     return (
         <div>
-            <Navbar key={'lg'} expand={'lg'}
+            <Navbar fixed={"top"} key={'lg'} expand={'lg'}
                     className={`
                     text-${theme === 'dark' ? 'light' : 'dark'} 
                     bg-${theme}
@@ -28,6 +27,9 @@ export default function Layout() {
                         aria-controls={`offcanvasNavbar-expand-lg`}
                         className={`navbar-${theme === 'dark' ? 'dark' : 'light'}`}
                     />
+                    <Navbar.Brand className={`text-${theme === 'dark' ? 'light' : 'dark'} bg-${theme} navbar-brand`}>
+                        {language === 'en' ? `Georgian Culture` : 'საქართველოს კულტურა'}
+                    </Navbar.Brand>
                     <Navbar.Offcanvas
                         id={`offcanvasNavbar-expand-lg`}
                         aria-labelledby={`offcanvasNavbarLabel-expand-lg`}
@@ -40,73 +42,72 @@ export default function Layout() {
                         >
                         </Offcanvas.Header>
                         <Offcanvas.Body
-                            className={`d-flex justify-content-between align-items-center text-${theme === 'dark' ? 'light' : 'dark'} bg-${theme} text-center`}>
-                            <Form className={"d-flex align-items-center m-1 Navbar"}>
+                            className={`
+                                text-${theme === 'dark' ? 'light' : 'dark'}
+                                bg-${theme}`}>
+                            <Form className={"d-flex align-items-center flex-fill m-1 Navbar"}>
                                 <Form.Control
                                     type="search"
-                                    placeholder="ძებნა"
+                                    placeholder={`${language === 'en' ? 'search' : 'ძებნა'}`}
                                     className="mx-2"
                                 />
-                                <Button variant="outline-primary">ძებნა</Button>
+                                <Button variant="outline-primary">
+                                    {`${language === 'en' ? 'search' : 'ძებნა'}`}
+                                </Button>
                             </Form>
                             <div className={'d-flex justify-content-center align-items-center Navbar'}>
                                 {
                                     theme === 'light' ? (
                                         <Button
-                                            className={'m-2 sunshine'}
+                                            className={'m-2 moonlight'}
                                             onClick={() => {
                                                 setTheme('dark')
                                             }}
                                         >
                                             <div className={'d-flex align-items-center'}>
-                                                <div className={'me-3'}>ღამე</div>
+                                                <div className={'me-3'}>
+                                                    {language === 'en' ? 'Night' : 'ღამე'}
+                                                </div>
                                                 <NightIcon/>
                                             </div>
                                         </Button>
                                     ) : (
                                         <Button
-                                            className={'m-2 moonlight'}
+                                            className={'m-2 sunshine'}
                                             onClick={() => {
                                                 setTheme('light')
                                             }}
                                         >
                                             <div className={'d-flex align-items-center'}>
-                                                <div className={'me-3'}>დღე</div>
+                                                <div className={'me-3'}>
+                                                    {language === 'en' ? 'Day' : 'დღე'}
+                                                </div>
                                                 <DayIcon/>
                                             </div>
                                         </Button>
                                     )
                                 }
-                                {/* todo - ar chans droshebi mobiluris versiaze*/}
-                                <div className={"Navbar"}>
-                                    <img
-                                        src={ka}
-                                        alt={`You can't see Georgian flag foto which translates text to Georgian`}
-                                        style={{height: '1.5rem'}}
-                                        onClick={() => {
-                                            setLanguage('ka')
-                                        }}
-                                    />
-                                </div>
-                                <div className={"Navbar"}>
-                                    <img
-                                        src={en}
-                                        alt={`You can't see English flag foto which translates text to English`}
-                                        style={{height: '1.5rem'}}
-                                        onClick={() => {
-                                            setLanguage('en')
-                                        }}
-                                    />
-                                </div>
-                                <div className={"Navbar"}>
-                                    <img
-                                        src={ru}
-                                        alt={`You can't see Russian flag foto which translates text to Russian`}
-                                        style={{height: '1.5rem'}}
-                                        onClick={() => {
-                                            setLanguage('ru')
-                                        }}
-                                    />
+                                <div className={'d-flex align-items-center justify-content-center'}>
+                                    <div className={"image"}>
+                                        <img
+                                            src={ka}
+                                            alt={`You can't see Georgian flag foto which translates text to Georgian`}
+                                            style={{height: '1.5rem'}}
+                                            onClick={() => {
+                                                setLanguage('ka')
+                                            }}
+                                        />
+                                    </div>
+                                    <div className={"image"}>
+                                        <img
+                                            src={en}
+                                            alt={`You can't see English flag foto which translates text to English`}
+                                            style={{height: '1.5rem'}}
+                                            onClick={() => {
+                                                setLanguage('en')
+                                            }}
+                                        />
+                                    </div>
                                 </div>
                             </div>
 
@@ -120,7 +121,7 @@ export default function Layout() {
                     </Navbar.Offcanvas>
                 </Container>
             </Navbar>
-            <div className={'d-flex justify-content-center'}>
+            <div className={'d-flex justify-content-center marginFotoFromTop'}>
                 <img
                     src={mainHeaderImage}
                     alt={'თქვენ ვერ ხედავთ "საუნჯე"-ს მთავარ ფოტოს'}
@@ -131,7 +132,6 @@ export default function Layout() {
                 />
             </div>
             <Outlet/>
-
         </div>
     )
 }

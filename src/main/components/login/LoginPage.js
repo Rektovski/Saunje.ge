@@ -1,52 +1,103 @@
-import {Button, Card, Form} from "react-bootstrap";
-import {useContext, useEffect, useState} from "react";
+import {Button, Card, Form, Spinner} from "react-bootstrap";
+import {useContext, useState} from "react";
 import "../../style/LoginStyle.css";
-import UserContext from "../../context/UserContext";
 import "../../../App.css";
+import LanguageContext from "../../context/LanguageContext";
+import ka from "../../images/ka.gif";
+import en from "../../images/en.gif";
 
 export default function LoginPage() {
-    const {user} = useContext(UserContext);
     const [password, setPassword] = useState('');
-    const code = "e28pL^ND0#6Yn#UMSUD@7Imh6!lL5#G!tU7@oy$!";
+    const {language, setLanguage} = useContext(LanguageContext);
+    const [token, setToken] = useState(false);
 
-    useEffect(() => {
-        authorization();
-    }, [user]);
+    const code = "123";
 
     const authorization = () => {
         if (password === code) {
+            setToken(true);
             localStorage.setItem('password', 'Admin');
-            window.location.replace("http://localhost:3000");
+            setTimeout(() => {
+                window.location.replace("http://localhost:3000");
+            }, 1000);
         }
         console.log(1);
     }
 
     return (
-        <div className={'loginPageStyle app'}>
-            <Card className={'rounded border-info'}>
-                <Form>
-                    <Form.Group className={'m-2 text-center'}>
-                        <Form.Label className={'m-2'}>Password</Form.Label>
-                        <Form.Control
-                            placeholder={'type your password'}
-                            type={'password'}
-                            value={password}
-                            onChange={event => setPassword(event.target.value)}
+        <>
+            {
+                token ? (
+                    <div className={'loading'}>
+                        <Spinner
+                            variant={'info'}
+                            as="span"
+                            animation="border"
                         />
-                    </Form.Group>
-                    <div className={'d-flex'}>
-                        <div className={'flex-fill'}>
-                            <Button variant={'outline-danger'} className={'m-2'} onClick={() => {
-                                window.location.replace('http://localhost:3000')
-                            }}>უკან დაბრუნება</Button>
-                        </div>
-                        <div className={''}>
-                            <Button variant={'outline-primary'} className={'m-2'}
-                                    onClick={authorization}>შესვლა</Button>
-                        </div>
                     </div>
-                </Form>
-            </Card>
-        </div>
+                ) : (
+                    <div className={'loginPageStyle app'}>
+                        <Card className={'rounded border-info'}>
+                            <Form>
+                                <Form.Group className={'m-2 text-center'}>
+                                    <Form.Label className={'m-2'}>
+                                        {language === 'en' ? 'Password' : 'პაროლი'}
+                                    </Form.Label>
+                                    <Form.Control
+                                        placeholder={`${language === 'en' ? 'type your password' : 'შეიყვანეთ პაროლი'}`}
+                                        type={'password'}
+                                        value={password}
+                                        onChange={event => setPassword(event.target.value)}
+                                    />
+                                </Form.Group>
+                                <div className={'d-flex'}>
+                                    <div className={'flex-fill'}>
+                                        <Button variant={'outline-danger'} className={'m-2'} onClick={() => {
+                                            window.location.replace('http://localhost:3000')
+                                        }}>
+                                            {language === 'en' ? '<- Go Back' : '<- უკან დაბრუნება'}
+                                        </Button>
+                                    </div>
+                                    <div className={''}>
+                                        <Button
+                                            variant={'outline-primary'}
+                                            className={'m-2'}
+                                            onClick={authorization}
+                                        >
+                                            {language === 'en' ? 'Log in ->' : 'შესვლა ->'}
+                                        </Button>
+                                    </div>
+                                </div>
+                                <div className={'d-flex align-items-center justify-content-end'}>
+                                    <div className={'me-3'}>
+                                        {language === 'en' ? 'Change Language ' : 'ენის შეცვლა '}
+                                    </div>
+                                    <div className={"image"}>
+                                        <img
+                                            src={ka}
+                                            alt={`You can't see Georgian flag foto which translates text to Georgian`}
+                                            style={{height: '1.5rem'}}
+                                            onClick={() => {
+                                                setLanguage('ka')
+                                            }}
+                                        />
+                                    </div>
+                                    <div className={"image"}>
+                                        <img
+                                            src={en}
+                                            alt={`You can't see English flag foto which translates text to English`}
+                                            style={{height: '1.5rem'}}
+                                            onClick={() => {
+                                                setLanguage('en')
+                                            }}
+                                        />
+                                    </div>
+                                </div>
+                            </Form>
+                        </Card>
+                    </div>
+                )
+            }
+        </>
     );
 }
