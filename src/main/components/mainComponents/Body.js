@@ -6,15 +6,58 @@ import LeftLayout from "./LeftLayout";
 import PostModal from "./PostModal";
 import UserContext from "../../context/UserContext";
 import ControlPanel from "../adminPanel/ControlPanel";
+import axios from "axios";
+import LanguageContext from "../../context/LanguageContext";
+import ServerUrlContext from "../../context/ServerUrlContext";
 
 export default function Body() {
     const {theme} = useContext(ThemeContext);
     const {user} = useContext(UserContext);
     const [show, setShow] = useState(false);
     const [sideBar, setSideBar] = useState(false);
+    const [newsDetailed, setNewsDetailed] = useState({});
+    const [newsList, setNewsList] = useState([]);
+    const {language} = useContext(LanguageContext);
+    const {serverUrl} = useContext(ServerUrlContext);
 
     useEffect(()=>{
-        console.log('logged from body.js -> useEffect');
+        //TODO: უნდა წამოიღოს სერვერიდან სიახლეები
+        // {
+        //     newsId: 0,
+        //     title: 'epa',
+        //     text: 'aaa',
+        // }
+        axios.get(`${serverUrl}/refresh_news`, {
+            params: {
+                language
+            }
+        }).then((response)=>{
+            setNewsList(response.data)
+        }).catch((error)=>console.error(error, 'error during refreshing news list'));
+
+
+        setNewsList([{
+            newsId: 0,
+            title: 'lazo',
+            text: 'lazo',
+            date: '2022/07/29'
+        }, {
+            newsId: 1,
+            title: 'oto',
+            text: 'oto',
+            date: '2022/07/28'
+        }, {
+            newsId: 2,
+            title: 'luka',
+            text: 'luka',
+            date: '2022/07/27'
+        }, {
+            newsId: 3,
+            title: 'dachi',
+            text: 'dachi',
+            date: '2022/07/26'
+        }])
+
     }, [sideBar])
 
     return (
@@ -32,32 +75,32 @@ export default function Body() {
                                 <Col sm={'6'} md={'8'} lg={'10'}>
                                     {
                                         sideBar ? (
-                                            <div id={"sideBarComponent"} className={'m-2 p-5 border border-1 rounded'}></div>
+                                            <div>
+                                                <h1 id={"topicTitleId"} className={'text-center'}></h1>
+                                                <div id={"sideBarComponent"} className={'m-2 p-5 border border-1 rounded'}></div>
+                                            </div>
                                         ) : (
-                                            <ListGroup className={'m-2'}>
-                                                {/*{*/}
-                                                {/*    // TODO: serverze dasamatebelia postebis sia*/}
-                                                {/*    array.map((listItem)=>(*/}
-                                                {/*        <ListGroup.Item*/}
-                                                {/*            key={listItem.id}*/}
-                                                {/*            onClick={()=>{*/}
-                                                {/*                setShow(true);*/}
-                                                {/*                // give data of the post to the modal and add data as useEffect's deps*/}
-                                                {/*            }}*/}
-                                                {/*        >*/}
-                                                {/*            {listItem.title}*/}
-                                                {/*        </ListGroup.Item>*/}
-                                                {/*    ))*/}
-                                                {/*}*/}
-                                                <ListGroup.Item
-                                                    onClick={()=>{
-                                                        setShow(true);
-                                                        // give data of the post to the modal and add data as useEffect's deps
-                                                    }}
-                                                >
-                                                    პოსტი - დავით აღმაშენებლი
-                                                </ListGroup.Item>
-                                            </ListGroup>
+                                            <div>
+                                                <h1 className={'text-center'}>
+                                                    {language === 'en' ? 'news' : 'სიახლეები'}
+                                                </h1>
+                                                <ListGroup className={'m-2'}>
+                                                    {
+                                                        newsList.map((listItem)=>(
+                                                            <ListGroup.Item
+                                                                key={listItem.newsId}
+                                                                onClick={()=>{
+                                                                    setShow(true);
+                                                                    setNewsDetailed(listItem)
+                                                                }}
+                                                            >
+                                                                {listItem.title}
+                                                            </ListGroup.Item>
+                                                        ))
+                                                    }
+                                                </ListGroup>
+                                            </div>
+
                                         )
                                     }
                                 </Col>
@@ -69,7 +112,7 @@ export default function Body() {
                             onHide={() => {
                                 setShow(false)
                             }}
-                            // data={data}
+                            data={newsDetailed}
                         />
                     </div>
                 )

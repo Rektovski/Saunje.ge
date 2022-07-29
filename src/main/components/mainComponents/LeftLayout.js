@@ -6,63 +6,74 @@ import "../../style/leftLayoutStyle.css";
 import {Accordion} from "react-bootstrap";
 import LanguageContext from "../../context/LanguageContext";
 import axios from "axios";
+import ServerUrlContext from "../../context/ServerUrlContext";
 
 export default function LeftLayout(props) {
     const {theme} = useContext(ThemeContext);
     const [menu, setMenu] = useState([])
     const {language} = useContext(LanguageContext);
-    const [centerContent, setCenterContent] = useState([]);
+    const {serverUrl} = useContext(ServerUrlContext);
+    const [tempItem, setTempItem] = useState("");
+    const [centerContent, setCenterContent] = useState("");
 
     useEffect(()=>{
 
-        if (language === 'en') {
-            setMenu([
-                {
-                    itemId: 0,
-                    name: 'epa'
-                }, {
-                    itemId: 1,
-                    name: 'monastery'
-                }, {
-                    itemId: 2,
-                    name: 'church'
+        setMenu([
+            {
+                itemId: 0,
+                name: {
+                    ka: 'ეპარქიები',
+                    en: 'epa',
                 }
-            ])
-        } else {
-            setMenu([
-                {
-                    itemId: 0,
-                    name: 'ეპარქიები'
-                }, {
-                    itemId: 1,
-                    name: 'მონასტრები'
-                }, {
-                    itemId: 2,
-                    name: 'ეკლესიები'
+            }, {
+                itemId: 1,
+                name: {
+                    ka: 'მონასტრები',
+                    en: 'monastery',
                 }
-            ])
-        }
-        //TODO: უნდა წამოიღოს სერვერიდან მერე
+            }, {
+                itemId: 2,
+                name: {
+                    ka: 'ეკლესიები',
+                    en: 'church',
+                }
+            }
+        ])
 
-        // axios.get('serveris misamarti')
-        //     .then((response)=>{
-        //         setMenu(response.data)
-        //     })
-        //     .catch(error=>console.error(error, "error"))
+        //TODO: უნდა წამოიღოს სერვერიდან მერე
+        axios.get(`${serverUrl}/refresh_menu`, {
+            params: {
+                language
+            }
+        }).then((response)=>{
+            setMenu(response.data)
+        }).catch((error)=>console.error(error, 'error during refreshing menu'));
+
+
+        if (tempItem) {
+            request(tempItem)
+        }
+
     },[language])
 
-    const request = async (itemId) => {
-        await axios
-            .get('serveris misamarti')
-            .then((response)=>{
-                setCenterContent(response.data);
-            })
-            .catch((error)=>console.error(error, 'shecdoma moxda html formatis mqone textis wamoghebisas'));
-        const content = centerContent.find((id)=>id===itemId);
+    const request = async (item) => {
+        await axios.get(`${serverUrl}/retrieve_topic_text`, {
+            params: {
+                itemId: item.itemId,
+                language
+            }
+        }).then((response)=>{
+            setCenterContent(response.data);
+        }).catch((error)=>console.error(error, 'error during retrieving topic text'));
+
         props.showSideBarInfo(true);
         setTimeout(() => {
-            document.getElementById('sideBarComponent').innerHTML = content + ' aq iqneba mere texti'; // content sheidzleba object iyos... content.text iqneba mashin an rame msgavsi
+            document.getElementById('topicTitleId').innerText = language === 'en' ? item.name.en : item.name.ka;
+            document.getElementById('sideBarComponent').innerHTML = centerContent + '<p><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/73/Lion_waiting_in_Namibia.jpg/220px-Lion_waiting_in_Namibia.jpg" alt="lazo" width="200" height="200"></p>\n' +
+                '<p>lazo magaria</p>'; // content sheidzleba object iyos... content.text iqneba mashin an rame msgavsi
         }, 1);
+
+        setTempItem(item)
     }
 
     return (
@@ -89,10 +100,10 @@ export default function LeftLayout(props) {
                             key = {item.itemId}
                             className={'hovering'}
                             onClick={() => {
-                                request(item.itemId)
+                                request(item)
                             }}
                         >
-                            {item.name}
+                            {language === 'en' ? item.name.en : item.name.ka}
                         </Accordion.Body>
 
                     ))

@@ -27,9 +27,9 @@ export default function Layout() {
                         aria-controls={`offcanvasNavbar-expand-lg`}
                         className={`navbar-${theme === 'dark' ? 'dark' : 'light'}`}
                     />
-                    <Navbar.Brand className={`text-${theme === 'dark' ? 'light' : 'dark'} bg-${theme} navbar-brand`}>
-                        {language === 'en' ? `Georgian Culture` : 'საქართველოს კულტურა'}
-                    </Navbar.Brand>
+                    {/*<Navbar.Brand className={`text-${theme === 'dark' ? 'light' : 'dark'} bg-${theme} navbar-brand`}>*/}
+                    {/*    {language === 'en' ? `Georgian Culture` : 'საქართველოს კულტურა'}*/}
+                    {/*</Navbar.Brand>*/}
                     <Navbar.Offcanvas
                         id={`offcanvasNavbar-expand-lg`}
                         aria-labelledby={`offcanvasNavbarLabel-expand-lg`}
