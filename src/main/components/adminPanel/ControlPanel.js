@@ -1,5 +1,5 @@
 import {Accordion, Button, Container, Form, InputGroup} from "react-bootstrap";
-import {useState, useContext, useRef} from "react";
+import {useState, useContext, useRef, useEffect} from "react";
 import ThemeContext from "../../context/ThemeContext";
 import LanguageContext from "../../context/LanguageContext";
 import { Editor } from '@tinymce/tinymce-react';
@@ -12,8 +12,15 @@ export default function ControlPanel() {
     const editorRef = useRef(null);
     //TODO: useEffect გვინდა სერვერიდან მენიუს წამოსაღებას
 
+    useEffect(()=>{
+        window.alert(language === 'en' ? '-Monitoring: This is admin panel. If you are not the owner/admin/moderator of this page please logout and contact to this email: example@example.com' : '-მონიტორინგი: თქვენ იმყოფებით საიტის მფლობელის/ადმინისტრატორის/მოდერატორის პანელში. თუ საიტი თქვენი არ არის გთხოვთ დაუყოვნებლივ დატოვოთ იგი და დაუკავშირდეთ ადმინისტრაციას მეილზე: example@example.com')
+    }, [language])
+
     return (
         <Container className={`bg-${theme} text-${theme === 'dark' ? 'light' : 'dark'} border rounded`}>
+            <h1 style={{marginTop: 10}} className={'text-center'}>
+                {language === 'en' ? 'Admin Panel' : 'საკონტროლო გვერდი'}
+            </h1>
             <Accordion className={'p-3'}>
                 <Accordion.Item eventKey="0" className={'my-3'}>
                     <Accordion.Header className={`bg-${theme} text-${theme === 'dark' ? 'light' : 'dark'}`}>
