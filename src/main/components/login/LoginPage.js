@@ -1,39 +1,62 @@
-import {Button, Card, Form, Spinner} from "react-bootstrap";
-import {useContext, useState} from "react";
+import {Button, Card, Container, Form, ProgressBar, Spinner} from "react-bootstrap";
+import {useContext, useEffect, useState} from "react";
 import "../../style/LoginStyle.css";
 import "../../../App.css";
 import LanguageContext from "../../context/LanguageContext";
 import ka from "../../images/ka.gif";
 import en from "../../images/en.gif";
 
+let intervalId;
+
 export default function LoginPage() {
     const [password, setPassword] = useState('');
     const {language, setLanguage} = useContext(LanguageContext);
     const [token, setToken] = useState(false);
+    const [countDown, setCountDown] = useState(0);
+    const [tick, setTick] = useState(false);
 
-    const code = "123";
+    const code = "";
+
+    useEffect(()=>{
+        clearInterval(intervalId);
+        intervalId = setInterval(()=>{
+            if(countDown<3 && tick){
+                setCountDown((prevState)=>{
+                    return prevState+1;
+                })
+            } else {
+                clearInterval(intervalId);
+            }
+        }, 1000);
+    }, [countDown, tick]);
 
     const authorization = () => {
         if (password === code) {
             setToken(true);
             localStorage.setItem('password', 'Admin');
+            setTick(true);
             setTimeout(() => {
                 window.location.replace("http://localhost:3000");
-            }, 1000);
+            }, 4000);
         }
-        console.log(1);
     }
 
     return (
         <>
             {
                 token ? (
-                    <div className={'loading'}>
-                        <Spinner
-                            variant={'info'}
-                            as="span"
-                            animation="border"
-                        />
+                    <div>
+                        <div style={{marginTop: "39vh"}} className={'d-flex justify-content-center text-light font-monospace'}>Loading...</div>
+                        <Container >
+                            <ProgressBar style={{marginTop: "15vh"}} animated now={(countDown/3)*100} variant={'info'}/>;
+                        </Container>
+                        <div className={'loading'}>
+                            <Spinner
+                                variant={'light'}
+                                as="span"
+                                animation="border"
+                            />
+                        </div>
                     </div>
                 ) : (
                     <div className={'loginPageStyle app'}>

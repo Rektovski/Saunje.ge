@@ -10,20 +10,11 @@ export default function ControlPanel() {
     const [newPostText, setNewPostText] = useState('');
     const {language} = useContext(LanguageContext);
     const editorRef = useRef(null);
-
     //TODO: useEffect გვინდა სერვერიდან მენიუს წამოსაღებას
 
     return (
-        <Container>
-            <div className={'text-center my-3'}>
-                <Button variant={'danger'} onClick={() => {
-                    localStorage.clear('password');
-                    window.location.replace('http://localhost:3000/login');
-                }}>
-                    {language === 'en' ? 'Exit' : 'გამოსვლა'}
-                </Button>
-            </div>
-            <Accordion>
+        <Container className={`bg-${theme} text-${theme === 'dark' ? 'light' : 'dark'} border rounded`}>
+            <Accordion className={'p-3'}>
                 <Accordion.Item eventKey="0" className={'my-3'}>
                     <Accordion.Header className={`bg-${theme} text-${theme === 'dark' ? 'light' : 'dark'}`}>
                         {language === 'en' ? 'Add Post' : 'პოსტის დამატება'}
@@ -66,7 +57,6 @@ export default function ControlPanel() {
                         </Form>
                     </Accordion.Body>
                 </Accordion.Item>
-
                 <Accordion.Item eventKey="1" className={'my-3'}>
                     <Accordion.Header className={`bg-${theme} text-${theme === 'dark' ? 'light' : 'dark'}`}>
                         {`${language === 'en' ? 'change menu' : 'მენიუს ცვლილება'}`}
@@ -108,8 +98,7 @@ export default function ControlPanel() {
                         </Form>
                     </Accordion.Body>
                 </Accordion.Item>
-
-                <Accordion.Item eventKey="3" className={'my-3'}>
+                <Accordion.Item eventKey="2" className={'my-3'}>
                     <Accordion.Header className={`bg-${theme} text-${theme === 'dark' ? 'light' : 'dark'}`}>
                         {`${language === 'en' ? 'change menu text' : 'მენიუს ტექსტის რედაქტირება'}`}
                     </Accordion.Header>
@@ -129,7 +118,7 @@ export default function ControlPanel() {
                             {`${language === 'en' ? 'Text' : 'პოსტის ტექსტი'}`}
                             <Editor
                                 onInit={(evt, editor) => editorRef.current = editor}
-                                initialValue="<p>This is the initial content of the editor.</p>"
+                                initialValue="<p></p>"
                                 init={{
                                     height: 500,
                                     menubar: false,
@@ -144,18 +133,18 @@ export default function ControlPanel() {
                                         'removeformat | help',
                                     content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:14px }'
                                 }}
+                                onChange={()=>{
+                                    console.log(editorRef.current.getContent());
+                                }}
                             />
                             <div className={'d-flex justify-content-end'}>
                                 <Button
                                     variant="success"
                                     onClick={() => {
-
                                         //TODO : სერვერზე აიტვირთოს
                                         if (editorRef.current) {
                                             console.log(editorRef.current.getContent());
                                         }
-
-
                                         setNewPostText('');
                                         setNewPostName('');
                                     }}
@@ -166,7 +155,6 @@ export default function ControlPanel() {
                         </Form>
                     </Accordion.Body>
                 </Accordion.Item>
-
             </Accordion>
         </Container>
     )

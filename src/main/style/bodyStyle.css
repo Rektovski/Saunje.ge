@@ -1,4 +1,6 @@
 .bodyChanger {
-    min-height: 100vh;
-    height: auto !important;
+    height: 600px;
+    overflow-y: auto;
+    /*min-height: 100vh;
+    height: auto !important;*/
 }

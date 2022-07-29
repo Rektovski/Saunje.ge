@@ -10,13 +10,14 @@
 }
 
 .loading {
-    size: 20px;
-    width: 100vw;
-    height: 100vh;
-    position: absolute;
+    width: 100%;
+    height: 100%;
+    position: fixed;
     left: 0;
     top: 0;
     z-index: 99999;
     display: grid;
     place-items: center;
+    animation: ping 3s infinite;
+    animation-name: ping;
 }

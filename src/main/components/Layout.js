@@ -1,6 +1,6 @@
 import {Button, Container, Form, Navbar} from "react-bootstrap";
 import {Offcanvas} from "react-bootstrap";
-import {useContext} from "react";
+import {useContext, useEffect} from "react";
 import ThemeContext from "../context/ThemeContext";
 import {RiSunLine as DayIcon} from 'react-icons/ri';
 import "../style/layout.css";
@@ -10,10 +10,16 @@ import {Outlet} from "react-router";
 import ka from "../images/ka.gif";
 import en from "../images/en.gif";
 import LanguageContext from "../context/LanguageContext";
+import UserContext from "../context/UserContext";
 
 export default function Layout() {
+    const {user} = useContext(UserContext);
     const {theme, setTheme} = useContext(ThemeContext);
     const {language, setLanguage} = useContext(LanguageContext);
+
+    useEffect(() => {
+        console.log('User has signed in...')
+    }, [user]);
 
     return (
         <div>
@@ -27,6 +33,18 @@ export default function Layout() {
                         aria-controls={`offcanvasNavbar-expand-lg`}
                         className={`navbar-${theme === 'dark' ? 'dark' : 'light'}`}
                     />
+                    {!user ? (
+                        <Button variant={'warning'} onClick={() => {
+                            window.location.replace('http://localhost:3000/login')
+                        }}>Login</Button>
+                    ) : (
+                        <Button variant={'danger'} onClick={() => {
+                            localStorage.clear('password');
+                            window.location.replace('http://localhost:3000/login');
+                        }}>
+                            {language === 'en' ? 'Exit' : 'გამოსვლა'}
+                        </Button>
+                    )}
                     {/*<Navbar.Brand className={`text-${theme === 'dark' ? 'light' : 'dark'} bg-${theme} navbar-brand`}>*/}
                     {/*    {language === 'en' ? `Georgian Culture` : 'საქართველოს კულტურა'}*/}
                     {/*</Navbar.Brand>*/}

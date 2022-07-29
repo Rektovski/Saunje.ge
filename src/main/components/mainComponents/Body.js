@@ -1,14 +1,15 @@
-import {Col, ListGroup, Row} from "react-bootstrap";
+import axios from "axios";
 import {useContext, useEffect, useState} from "react";
-import ThemeContext from "../../context/ThemeContext";
-import "../../style/bodyStyle.css";
+import {Col, ListGroup, Row} from "react-bootstrap";
 import LeftLayout from "./LeftLayout";
 import PostModal from "./PostModal";
-import UserContext from "../../context/UserContext";
 import ControlPanel from "../adminPanel/ControlPanel";
-import axios from "axios";
+import ThemeContext from "../../context/ThemeContext";
+import UserContext from "../../context/UserContext";
 import LanguageContext from "../../context/LanguageContext";
 import ServerUrlContext from "../../context/ServerUrlContext";
+import "../../style/bodyStyle.css";
+import Footer from "./Footer";
 
 export default function Body() {
     const {theme} = useContext(ThemeContext);
@@ -72,11 +73,11 @@ export default function Body() {
                                 <Col sm={'6'} md={'4'} lg={'2'} className={'mx-auto flex-fill'}>
                                     <LeftLayout showSideBarInfo={()=>{setSideBar(true)}} hideSideBar={()=>{setSideBar(false)}}/>
                                 </Col>
-                                <Col sm={'6'} md={'8'} lg={'10'}>
+                                <Col sm={'6'} md={'8'} lg={'8'}>
                                     {
                                         sideBar ? (
                                             <div>
-                                                <h1 id={"topicTitleId"} className={'text-center'}></h1>
+                                                <h1 id={"topicTitleId"} className={'text-center'}>{''}</h1>
                                                 <div id={"sideBarComponent"} className={'m-2 p-5 border border-1 rounded'}></div>
                                             </div>
                                         ) : (
@@ -100,7 +101,6 @@ export default function Body() {
                                                     }
                                                 </ListGroup>
                                             </div>
-
                                         )
                                     }
                                 </Col>
@@ -117,6 +117,7 @@ export default function Body() {
                     </div>
                 )
             }
+            <Footer/>
         </>
     );
 }
