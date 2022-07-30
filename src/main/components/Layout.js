@@ -18,7 +18,7 @@ export default function Layout() {
     const {language, setLanguage} = useContext(LanguageContext);
 
     useEffect(() => {
-        console.log('User has signed in...')
+
     }, [user]);
 
     return (
@@ -129,12 +129,6 @@ export default function Layout() {
                                 </div>
                             </div>
 
-                            {/*<Navbar.Text*/}
-                            {/*    className={'d-grid flex-grow-1 align-items-center justify-content-end'}>*/}
-                            {/*    <Button variant={'warning'} onClick={() => {*/}
-                            {/*        window.location.replace('http://localhost:3000/login')*/}
-                            {/*    }}>Authorization</Button>*/}
-                            {/*</Navbar.Text>*/}
                         </Offcanvas.Body>
                     </Navbar.Offcanvas>
                 </Container>

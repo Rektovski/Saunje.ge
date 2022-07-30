@@ -15,7 +15,7 @@ function App() {
     const [theme, setTheme] = useState('light');
     const [user, setUser] = useState(localStorage.getItem('password'));
     const [language, setLanguage] = useState('ka');
-    const [serverUrl, setServerUrl] = useState('http://localhost:8080/api');
+    const [serverUrl, setServerUrl] = useState('http://localhost:8080');
 
     useEffect(()=>{
         if(user){

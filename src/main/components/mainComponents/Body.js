@@ -22,44 +22,10 @@ export default function Body() {
     const {serverUrl} = useContext(ServerUrlContext);
 
     useEffect(()=>{
-        //TODO: უნდა წამოიღოს სერვერიდან სიახლეები
-        // {
-        //     newsId: 0,
-        //     title: 'epa',
-        //     text: 'aaa',
-        // }
-        axios.get(`${serverUrl}/refresh_news`, {
-            params: {
-                language
-            }
-        }).then((response)=>{
+        axios.get(`${serverUrl}/news`).then((response)=>{
             setNewsList(response.data)
         }).catch((error)=>console.error(error, 'error during refreshing news list'));
-
-
-        setNewsList([{
-            newsId: 0,
-            title: 'lazo',
-            text: 'lazo',
-            date: '2022/07/29'
-        }, {
-            newsId: 1,
-            title: 'oto',
-            text: 'oto',
-            date: '2022/07/28'
-        }, {
-            newsId: 2,
-            title: 'luka',
-            text: 'luka',
-            date: '2022/07/27'
-        }, {
-            newsId: 3,
-            title: 'dachi',
-            text: 'dachi',
-            date: '2022/07/26'
-        }])
-
-    }, [sideBar])
+    }, [sideBar, serverUrl])
 
     return (
         <>
@@ -70,10 +36,10 @@ export default function Body() {
                     <div className={`bodyChanger bg-${theme} text-${theme === 'dark' ? 'light' : 'dark'}`}>
                         <div className={`mx-3 bg-${theme} text-${theme === 'dark' ? 'light' : 'dark'}`}>
                             <Row>
-                                <Col sm={'6'} md={'4'} lg={'2'} className={'mx-auto flex-fill'}>
+                                <Col sm={'6'} md={'4'} lg={'2'}>
                                     <LeftLayout showSideBarInfo={()=>{setSideBar(true)}} hideSideBar={()=>{setSideBar(false)}}/>
                                 </Col>
-                                <Col sm={'6'} md={'8'} lg={'8'}>
+                                <Col>
                                     {
                                         sideBar ? (
                                             <div>

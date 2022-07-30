@@ -14,41 +14,12 @@ export default function LeftLayout(props) {
     const {language} = useContext(LanguageContext);
     const {serverUrl} = useContext(ServerUrlContext);
     const [tempItem, setTempItem] = useState("");
-    const [centerContent, setCenterContent] = useState("");
 
     useEffect(()=>{
 
-        setMenu([
-            {
-                itemId: 0,
-                name: {
-                    ka: 'ეპარქიები',
-                    en: 'epa',
-                }
-            }, {
-                itemId: 1,
-                name: {
-                    ka: 'მონასტრები',
-                    en: 'monastery',
-                }
-            }, {
-                itemId: 2,
-                name: {
-                    ka: 'ეკლესიები',
-                    en: 'church',
-                }
-            }
-        ])
-
-        //TODO: უნდა წამოიღოს სერვერიდან მერე
-        axios.get(`${serverUrl}/refresh_menu`, {
-            params: {
-                language
-            }
-        }).then((response)=>{
+        axios.get(`${serverUrl}/get_menu`).then((response)=>{
             setMenu(response.data)
         }).catch((error)=>console.error(error, 'error during refreshing menu'));
-
 
         if (tempItem) {
             request(tempItem)
@@ -57,23 +28,20 @@ export default function LeftLayout(props) {
     },[language])
 
     const request = async (item) => {
-        await axios.get(`${serverUrl}/retrieve_topic_text`, {
+        await axios.get(`${serverUrl}/get_menu_item_context`, {
             params: {
-                itemId: item.itemId,
+                menuItemId: item.menuItemId,
                 language
             }
         }).then((response)=>{
-            setCenterContent(response.data);
+
+            setTempItem(item)
+            props.showSideBarInfo(true);
+            setTimeout(() => {
+                document.getElementById('topicTitleId').innerText = language === 'en' ? item.enText : item.kaText;
+                document.getElementById('sideBarComponent').innerHTML = response.data;
+            }, 1);
         }).catch((error)=>console.error(error, 'error during retrieving topic text'));
-
-        props.showSideBarInfo(true);
-        setTimeout(() => {
-            document.getElementById('topicTitleId').innerText = language === 'en' ? item.name.en : item.name.ka;
-            document.getElementById('sideBarComponent').innerHTML = centerContent + '<p><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/73/Lion_waiting_in_Namibia.jpg/220px-Lion_waiting_in_Namibia.jpg" alt="lazo" width="200" height="200"></p>\n' +
-                '<p>lazo magaria</p>'; // content sheidzleba object iyos... content.text iqneba mashin an rame msgavsi
-        }, 1);
-
-        setTempItem(item)
     }
 
     return (
@@ -97,13 +65,13 @@ export default function LeftLayout(props) {
                 {
                     menu.map((item) => (
                         <Accordion.Body
-                            key = {item.itemId}
+                            key = {item.menuItemId}
                             className={'hovering'}
                             onClick={() => {
                                 request(item)
                             }}
                         >
-                            {language === 'en' ? item.name.en : item.name.ka}
+                            {language === 'en' ? item.enText : item.kaText}
                         </Accordion.Body>
 
                     ))
