@@ -22,7 +22,7 @@ export default function Layout() {
     }, [user]);
 
     return (
-        <div>
+        <>
             <Navbar fixed={"top"} key={'lg'} expand={'lg'}
                     className={`
                     text-${theme === 'dark' ? 'light' : 'dark'} 
@@ -150,6 +150,6 @@ export default function Layout() {
                 />
             </div>
             <Outlet/>
-        </div>
+        </>
     )
 }

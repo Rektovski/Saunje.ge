@@ -1,4 +1,4 @@
-import {Accordion, Button, Container, Form, InputGroup} from "react-bootstrap";
+import {Accordion, Button, Card, Container, Form, InputGroup} from "react-bootstrap";
 import {useState, useContext, useRef, useEffect} from "react";
 import ThemeContext from "../../context/ThemeContext";
 import LanguageContext from "../../context/LanguageContext";
