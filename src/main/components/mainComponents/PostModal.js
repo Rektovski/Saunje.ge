@@ -7,7 +7,7 @@ export default function PostModal(props) {
 
     return (
         <Modal {...props} size={'xl'}>
-            <Modal.Header closeButton className={`bg-${theme} text-${theme === 'dark' ? 'light' : 'dark'}`}>
+            <Modal.Header closeButton={true} className={`bg-${theme} text-${theme === 'dark' ? 'light' : 'dark'}`}>
                 <Modal.Title className={`bg-${theme} text-${theme === 'dark' ? 'light' : 'dark'}`}>
                     {props.data.title}
                 </Modal.Title>

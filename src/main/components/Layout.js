@@ -54,9 +54,9 @@ export default function Layout() {
                         placement="bottom"
                     >
                         <Offcanvas.Header
-                            closeButton
+                            closeButton={true}
                             className={`bg-${theme} text-${theme === 'dark' ? 'light' : 'dark'}`}
-                            closeVariant={`${theme === 'dark' ? 'white' : ''}`}
+                            // closeVariant={`${theme === 'dark' ? 'white' : ''}`}
                         >
                         </Offcanvas.Header>
                         <Offcanvas.Body
