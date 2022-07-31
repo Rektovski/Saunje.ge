@@ -22,12 +22,12 @@ export default function LoginPage() {
         intervalId = setInterval(()=>{
             if(countDown<3 && tick){
                 setCountDown((prevState)=>{
-                    return prevState+1;
+                    return prevState+0.03;
                 })
             } else {
                 clearInterval(intervalId);
             }
-        }, 1000);
+        }, 30);
     }, [countDown, tick]);
 
     const authorization = () => {
@@ -37,7 +37,7 @@ export default function LoginPage() {
             setTick(true);
             setTimeout(() => {
                 window.location.replace("http://localhost:3000");
-            }, 4000);
+            }, 3000);
         }
     }
 
