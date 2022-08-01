@@ -7,6 +7,7 @@ import ka from "../../images/ka.gif";
 import en from "../../images/en.gif";
 
 let intervalId;
+const timeWhileLoading = 3;
 
 export default function LoginPage() {
     const [password, setPassword] = useState('');
@@ -22,7 +23,8 @@ export default function LoginPage() {
         intervalId = setInterval(()=>{
             if(countDown<3 && tick){
                 setCountDown((prevState)=>{
-                    return prevState+0.03;
+                    return prevState+timeWhileLoading/100;
+                    // timeWhileLoading / 100 - gives 1% for loading content
                 })
             } else {
                 clearInterval(intervalId);
@@ -37,7 +39,7 @@ export default function LoginPage() {
             setTick(true);
             setTimeout(() => {
                 window.location.replace("http://localhost:3000");
-            }, 3000);
+            }, 3030);
         }
     }
 
@@ -48,7 +50,7 @@ export default function LoginPage() {
                     <div>
                         <div style={{marginTop: "39vh"}} className={'d-flex justify-content-center text-light font-monospace'}>Loading...</div>
                         <Container >
-                            <ProgressBar style={{marginTop: "15vh"}} animated now={(countDown/3)*100} variant={'info'}/>;
+                            <ProgressBar style={{marginTop: "15vh"}} animated now={(countDown/2)*100} variant={'info'}/>;
                         </Container>
                         <div className={'loading'}>
                             <Spinner
