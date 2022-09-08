@@ -1,6 +1,5 @@
 import React, {useContext, useEffect, useState} from 'react';
 import ThemeContext from "../../context/ThemeContext";
-import "react-pro-sidebar/dist/css/styles.css";
 import "../../style/leftLayoutStyle.css";
 import {Accordion} from "react-bootstrap";
 import LanguageContext from "../../context/LanguageContext";
