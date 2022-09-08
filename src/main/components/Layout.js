@@ -139,7 +139,8 @@ export default function Layout() {
                     alt={'თქვენ ვერ ხედავთ "საუნჯე"-ს მთავარ ფოტოს'}
                     className={'mainHeaderImage'}
                     onClick={() => {
-                        window.location.replace('http://localhost:3000')
+                        window.location.reload()
+                        // todo after domain do this window.location.replace('http://localhost:3000')
                     }}
                 />
             </div>
